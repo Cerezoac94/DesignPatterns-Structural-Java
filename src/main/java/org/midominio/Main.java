@@ -1,8 +1,16 @@
 package org.midominio;
 
-//import org.midominio.structural.adapter.CreditCard;
 
-import org.midominio.structural.adapter2.*;
+//import org.midominio.structural.bridge.ClassicCreditCard;
+//import org.midominio.structural.bridge.SecureCreditCard;
+//import org.midominio.structural.bridge.UnsecureCreditCard;
+//import org.midominio.structural.bridge.CreditCard;
+
+import org.midominio.structural.bridge2.devices.SoundSystem;
+import org.midominio.structural.bridge2.devices.Tv;
+import org.midominio.structural.bridge2.remotes.AdvancedRemote;
+import org.midominio.structural.bridge2.remotes.BasicRemote;
+import org.midominio.structural.bridge2.remotes.IRemote;
 
 public class Main {
     public static void main(String[] args) {
@@ -10,22 +18,28 @@ public class Main {
     }
 
     private static void testPattern(){
-        //Adapter 1
-//        CreditCard creditCard = new CreditCard();
-//        creditCard.pay("classic");
-//        creditCard.pay("gold");
-//        creditCard.pay("black");
-//        creditCard.pay("platinum");
+        //Bridge 1
+//        CreditCard creditCard = new ClassicCreditCard(new UnsecureCreditCard());
+//        creditCard.realizarPago();
+//
+//        creditCard = new ClassicCreditCard(new SecureCreditCard());
+//        creditCard.realizarPago();
 
-        //Adapter 2
-        AudioPlayer audioPlayer = new AudioPlayer();
-        MediaPlayer mediaPlayer = new MediaPlayer();
+        //Bridge 2
+        IRemote remoto = new BasicRemote(new Tv("Sony"));
+        remoto.power();
+        remoto.channelUp();
+        remoto.display();
 
-        audioPlayer.play(mediaPlayer, "Cancion 1");
+        remoto = new BasicRemote(new SoundSystem("Bose"));
+        remoto.power();
+        remoto.display();
 
-        MediaAdapter vlcPlayer = new MediaAdapter(new VlcPlayer());
-        audioPlayer.play(vlcPlayer, "cancion 2");
-        MediaAdapter mp4Player = new MediaAdapter(new Mp4Player());
-        audioPlayer.play(mp4Player, "cancion 3");
+        AdvancedRemote remotoUniversal = new AdvancedRemote(new SoundSystem("Sony"));
+        remotoUniversal.power();
+        remotoUniversal.setMode("Aux");
+        remotoUniversal.channelUp();
+        remotoUniversal.volumeUp();
+        remotoUniversal.display();
     }
 }
