@@ -1,14 +1,9 @@
 package org.midominio;
 
 
-//import org.midominio.structural.composite.CuentaAhorro;
-//import org.midominio.structural.composite.CuentaComposite;
-//import org.midominio.structural.composite.CuentaCorriente;
-//import org.midominio.structural.composite.ICuentaComponent;
+//import org.midominio.structural.decorator.*;
 
-import org.midominio.structural.composite2.paqueteria.Caja;
-import org.midominio.structural.composite2.paqueteria.IComponent;
-import org.midominio.structural.composite2.paqueteria.Product;
+import org.midominio.structural.decorator2.Application;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,29 +11,28 @@ public class Main {
     }
 
     private static void testPattern(){
-        //Composite 1
-//        ICuentaComponent cuentaCoriente = new CuentaCorriente(1000.0,"Alberto");
-//        ICuentaComponent cuentaAhorro = new CuentaAhorro(20000.0, "Alberto");
+        //Decorator 1
+//        ICredit gold = new Gold();
+//        ICredit blackInternationalPayment = new Black();
+//        blackInternationalPayment = new InternationalPaymentDecorator(blackInternationalPayment);
 //
-//        CuentaComposite cuentaComposite = new CuentaComposite();
-//        cuentaComposite.addCuenta(cuentaCoriente);
-//        cuentaComposite.addCuenta(cuentaAhorro);
+//        ICredit goldSecureInternational = new Gold(); //ref 1
+//        goldSecureInternational = new InternationalPaymentDecorator(goldSecureInternational); // ref2(ref1)
+//        goldSecureInternational = new SecureDecorator(goldSecureInternational); //ref3(ref2(ref1))
 //
-//        cuentaComposite.showAccountName();
-//        cuentaComposite.getAmmount();
+//        System.out.println("Tarjeta gold con configuración");
+//        gold.showCredit();
+//
+//        System.out.println("Tarjeta black con configuración");
+//        blackInternationalPayment.showCredit();
+//
+//        System.out.println("Tarjeta gold2 con configuración");
+//        goldSecureInternational.showCredit(); //Ref3 referencia de tipo SecureDecorator
 
-        //Composite 2
-        IComponent product1 = new Product("Monitor 27 inch",7000.0);
-        IComponent product2 = new Product("Gabinete Corsair",3500.0);
-
-        IComponent product3 = new Product("Mouse Logitech",1400.0);
-        IComponent product4 = new Product("Teclado Logitech",800.0);
-        Caja caja1 = new Caja();
-        caja1.addProduct(product3);
-        caja1.addProduct(product4);
-
-        Caja cajaContenedora = new Caja(product1,product2,caja1);
-        System.out.println("El precio total del paquete es: " + cajaContenedora.getPriceProduct());
-
+        //Decorator 2
+        Application appNotifier = new Application();
+        appNotifier.enableDisableFacebook();
+        appNotifier.enableDisableSms();
+        appNotifier.notifier("correo@gmail.com", "Alerta!");
     }
 }
