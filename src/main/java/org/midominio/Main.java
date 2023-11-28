@@ -1,10 +1,8 @@
 package org.midominio;
 
 
-import org.midominio.structural.flyweight.EnemyFactory;
-import org.midominio.structural.flyweight.IEnemy;
-
-import java.util.Random;
+import org.midominio.structural.proxy.Internet;
+import org.midominio.structural.proxy.ProxyInternet;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,24 +10,13 @@ public class Main {
     }
 
     private static void testPattern(){
-        for (int i = 0; i<15; i++){
-            IEnemy enemy = EnemyFactory.getEnemy(getRandomEnemyType());
-            enemy.setWeapon(getRandomWeapon());
-            enemy.lifePoints();
+        Internet internet = new ProxyInternet();
+        try{
+            internet.connectTo("udemy.com");
+            internet.connectTo("facebook.com");
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
         }
     }
-    private static String getRandomEnemyType(){
-        Random r = new Random();
-        int randInt = r.nextInt(enemyType.length);
-        return enemyType[randInt];
-    }
-
-    private static String getRandomWeapon(){
-        Random r = new Random();
-        int randInt = r.nextInt(weapon.length);
-        return weapon[randInt];
-    }
-    private static String[] enemyType = {"Soldier", "Detective"};
-    private static String[] weapon = {"Fusil", "Revolver", "Cuchillo", "Lanza granadas", "Bazooka"};
 
 }
